@@ -19,6 +19,29 @@ public static class XxHash
     public static ulong XxHash64(byte[] data)
         => XxHash64Impl.Hash(data);
 
+#if NETCOREAPP || NETSTANDARD2_1_OR_GREATER
+    /// <summary>
+    /// Computes the 64-bit xxHash of the given byte span.
+    /// Returns an unsigned 64-bit integer.
+    /// </summary>
+    public static ulong XxHash64(ReadOnlySpan<byte> data)
+        => XxHash64Impl.Hash(data);
+
+    /// <summary>
+    /// Computes the 64-bit xxHash of the given char span (interpreting chars as bytes).
+    /// Returns an unsigned 64-bit integer.
+    /// </summary>
+    public static ulong XxHash64(ReadOnlySpan<char> data)
+        => XxHash64Impl.Hash(data);
+#endif
+
+    /// <summary>
+    /// Computes the 64-bit xxHash of the given stream.
+    /// Returns an unsigned 64-bit integer.
+    /// </summary>
+    public static ulong XxHash64(Stream stream, int bufferSize = 4096)
+        => XxHash64Impl.Hash(stream, 0, bufferSize);
+
     /// <summary>
     /// Computes the 64-bit xxHash of the given string (interpreting chars as bytes).
     /// Returns a signed 64-bit integer.
@@ -32,6 +55,29 @@ public static class XxHash
     /// </summary>
     public static long XxHash64s(byte[] data)
         => (long)XxHash64Impl.Hash(data);
+
+#if NETCOREAPP || NETSTANDARD2_1_OR_GREATER
+    /// <summary>
+    /// Computes the 64-bit xxHash of the given byte span.
+    /// Returns a signed 64-bit integer.
+    /// </summary>
+    public static long XxHash64s(ReadOnlySpan<byte> data)
+        => (long)XxHash64Impl.Hash(data);
+
+    /// <summary>
+    /// Computes the 64-bit xxHash of the given char span (interpreting chars as bytes).
+    /// Returns a signed 64-bit integer.
+    /// </summary>
+    public static long XxHash64s(ReadOnlySpan<char> data)
+        => (long)XxHash64Impl.Hash(data);
+#endif
+
+    /// <summary>
+    /// Computes the 64-bit xxHash of the given stream.
+    /// Returns a signed 64-bit integer.
+    /// </summary>
+    public static long XxHash64s(Stream stream, int bufferSize = 4096)
+        => (long)XxHash64Impl.Hash(stream, 0, bufferSize);
 
     /// <summary>
     /// Computes the 32-bit xxHash of the given string (interpreting chars as bytes).
@@ -47,6 +93,29 @@ public static class XxHash
     public static uint XxHash32(byte[] data)
         => XxHash32Impl.Hash(data);
 
+#if NETCOREAPP || NETSTANDARD2_1_OR_GREATER
+    /// <summary>
+    /// Computes the 32-bit xxHash of the given byte span.
+    /// Returns an unsigned 32-bit integer.
+    /// </summary>
+    public static uint XxHash32(ReadOnlySpan<byte> data)
+        => XxHash32Impl.Hash(data);
+
+    /// <summary>
+    /// Computes the 32-bit xxHash of the given char span (interpreting chars as bytes).
+    /// Returns an unsigned 32-bit integer.
+    /// </summary>
+    public static uint XxHash32(ReadOnlySpan<char> data)
+        => XxHash32Impl.Hash(data);
+#endif
+
+    /// <summary>
+    /// Computes the 32-bit xxHash of the given stream.
+    /// Returns an unsigned 32-bit integer.
+    /// </summary>
+    public static uint XxHash32(Stream stream, int bufferSize = 4096)
+        => XxHash32Impl.Hash(stream, 0, bufferSize);
+
     /// <summary>
     /// Computes the 32-bit xxHash of the given string (interpreting chars as bytes).
     /// Returns a signed 32-bit integer.
@@ -60,4 +129,27 @@ public static class XxHash
     /// </summary>
     public static int XxHash32s(byte[] data)
         => (int)XxHash32Impl.Hash(data);
+
+#if NETCOREAPP || NETSTANDARD2_1_OR_GREATER
+    /// <summary>
+    /// Computes the 32-bit xxHash of the given byte span.
+    /// Returns a signed 32-bit integer.
+    /// </summary>
+    public static int XxHash32s(ReadOnlySpan<byte> data)
+        => (int)XxHash32Impl.Hash(data);
+
+    /// <summary>
+    /// Computes the 32-bit xxHash of the given char span (interpreting chars as bytes).
+    /// Returns a signed 32-bit integer.
+    /// </summary>
+    public static int XxHash32s(ReadOnlySpan<char> data)
+        => (int)XxHash32Impl.Hash(data);
+#endif
+
+    /// <summary>
+    /// Computes the 32-bit xxHash of the given stream.
+    /// Returns a signed 32-bit integer.
+    /// </summary>
+    public static int XxHash32s(Stream stream, int bufferSize = 4096)
+        => (int)XxHash32Impl.Hash(stream, 0, bufferSize);
 }

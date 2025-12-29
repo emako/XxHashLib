@@ -28,6 +28,101 @@ internal static unsafe class XxHash32Impl
         }
     }
 
+#if NETCOREAPP || NETSTANDARD2_1_OR_GREATER
+    public static uint Hash(ReadOnlySpan<byte> data, uint seed = 0)
+    {
+        fixed (byte* p = data)
+        {
+            return HashCore(p, data.Length, seed);
+        }
+    }
+
+    public static uint Hash(ReadOnlySpan<char> data, uint seed = 0)
+    {
+        fixed (char* p = data)
+        {
+            return HashCore((byte*)p, data.Length * sizeof(char), seed);
+        }
+    }
+#endif
+
+    public static uint Hash(Stream stream, uint seed = 0, int bufferSize = 4096)
+    {
+        if (stream is null) throw new ArgumentNullException(nameof(stream));
+        if (bufferSize <= 0) throw new ArgumentOutOfRangeException(nameof(bufferSize));
+
+        byte[] buffer = new byte[bufferSize];
+        uint v1 = seed + Prime1 + Prime2;
+        uint v2 = seed + Prime2;
+        uint v3 = seed;
+        uint v4 = seed - Prime1;
+        long totalLength = 0;
+        bool hasProcessedBlock = false;
+        int carryOver = 0;
+
+        int bytesRead;
+        while ((bytesRead = stream.Read(buffer, carryOver, buffer.Length - carryOver)) > 0)
+        {
+            int totalBytes = carryOver + bytesRead;
+            totalLength += bytesRead;
+
+            fixed (byte* bufferPtr = buffer)
+            {
+                byte* p = bufferPtr;
+                byte* end = p + totalBytes;
+
+                while (p + 16 <= end)
+                {
+                    hasProcessedBlock = true;
+                    v1 = Round(v1, *(uint*)p); p += 4;
+                    v2 = Round(v2, *(uint*)p); p += 4;
+                    v3 = Round(v3, *(uint*)p); p += 4;
+                    v4 = Round(v4, *(uint*)p); p += 4;
+                }
+
+                carryOver = (int)(end - p);
+                if (carryOver > 0)
+                {
+                    for (int i = 0; i < carryOver; i++)
+                    {
+                        buffer[i] = p[i];
+                    }
+                }
+            }
+        }
+
+        uint hash = hasProcessedBlock
+            ? Rotl(v1, 1) + Rotl(v2, 7) + Rotl(v3, 12) + Rotl(v4, 18)
+            : seed + Prime5;
+
+        hash += (uint)totalLength;
+
+        if (carryOver > 0)
+        {
+            fixed (byte* tailPtr = buffer)
+            {
+                byte* tp = tailPtr;
+                byte* tend = tp + carryOver;
+
+                while (tp + 4 <= tend)
+                {
+                    hash += *(uint*)tp * Prime3;
+                    hash = Rotl(hash, 17) * Prime4;
+                    tp += 4;
+                }
+
+                while (tp < tend)
+                {
+                    hash += *tp * Prime5;
+                    hash = Rotl(hash, 11) * Prime1;
+                    tp++;
+                }
+            }
+        }
+
+        return FinalMix(hash);
+    }
+
     private static uint HashCore(byte* input, int length, uint seed)
     {
         uint hash;
