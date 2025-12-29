@@ -51,97 +51,23 @@ internal static unsafe class XxHash64Impl
         if (stream is null) throw new ArgumentNullException(nameof(stream));
         if (bufferSize <= 0) throw new ArgumentOutOfRangeException(nameof(bufferSize));
 
+        var allData = new System.Collections.Generic.List<byte>();
         byte[] buffer = new byte[bufferSize];
-        ulong v1 = seed + Prime1 + Prime2;
-        ulong v2 = seed + Prime2;
-        ulong v3 = seed;
-        ulong v4 = seed - Prime1;
-        long totalLength = 0;
-        bool hasProcessedBlock = false;
-        int carryOver = 0;
-
         int bytesRead;
-        while ((bytesRead = stream.Read(buffer, carryOver, buffer.Length - carryOver)) > 0)
+
+        while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
         {
-            int totalBytes = carryOver + bytesRead;
-            totalLength += bytesRead;
-
-            fixed (byte* bufferPtr = buffer)
+            for (int i = 0; i < bytesRead; i++)
             {
-                byte* p = bufferPtr;
-                byte* end = p + totalBytes;
-
-                while (p + 32 <= end)
-                {
-                    hasProcessedBlock = true;
-                    v1 = Round(v1, *(ulong*)p); p += 8;
-                    v2 = Round(v2, *(ulong*)p); p += 8;
-                    v3 = Round(v3, *(ulong*)p); p += 8;
-                    v4 = Round(v4, *(ulong*)p); p += 8;
-                }
-
-                carryOver = (int)(end - p);
-                if (carryOver > 0)
-                {
-                    for (int i = 0; i < carryOver; i++)
-                    {
-                        buffer[i] = p[i];
-                    }
-                }
+                allData.Add(buffer[i]);
             }
         }
 
-        ulong hash;
-        if (hasProcessedBlock)
+        byte[] data = allData.ToArray();
+        fixed (byte* p = data)
         {
-            hash = Rotl(v1, 1) + Rotl(v2, 7) + Rotl(v3, 12) + Rotl(v4, 18);
-            hash = MergeRound(hash, v1);
-            hash = MergeRound(hash, v2);
-            hash = MergeRound(hash, v3);
-            hash = MergeRound(hash, v4);
+            return HashCore(p, data.Length, seed);
         }
-        else
-        {
-            hash = seed + Prime5;
-        }
-
-        hash += (ulong)totalLength;
-
-        if (carryOver > 0)
-        {
-            fixed (byte* tailPtr = buffer)
-            {
-                byte* tp = tailPtr;
-                byte* tend = tp + carryOver;
-
-                while (tp + 8 <= tend)
-                {
-                    ulong k1 = *(ulong*)tp;
-                    k1 *= Prime2;
-                    k1 = Rotl(k1, 31);
-                    k1 *= Prime1;
-                    hash ^= k1;
-                    hash = Rotl(hash, 27) * Prime1 + Prime4;
-                    tp += 8;
-                }
-
-                while (tp + 4 <= tend)
-                {
-                    hash ^= *(uint*)tp * Prime1;
-                    hash = Rotl(hash, 23) * Prime2 + Prime3;
-                    tp += 4;
-                }
-
-                while (tp < tend)
-                {
-                    hash ^= *tp * Prime5;
-                    hash = Rotl(hash, 11) * Prime1;
-                    tp++;
-                }
-            }
-        }
-
-        return FinalMix(hash);
     }
 
     private static ulong HashCore(byte* input, int length, ulong seed)

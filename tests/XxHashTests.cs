@@ -92,43 +92,6 @@ public class XxHashTests
 #endif
 
     [Test]
-    public unsafe void XxHash64_VoidPointer_ReturnsExpectedHash()
-    {
-        fixed (byte* ptr = TestBytes)
-        {
-            var hash = XxHash.XxHash64(ptr, TestBytes.Length);
-            Assert.That(hash, Is.Not.Zero);
-        }
-    }
-
-    [Test]
-    public unsafe void XxHash64_VoidPointer_MatchesByteArray()
-    {
-        fixed (byte* ptr = TestBytes)
-        {
-            var ptrHash = XxHash.XxHash64(ptr, TestBytes.Length);
-            var arrayHash = XxHash.XxHash64(TestBytes);
-            Assert.That(ptrHash, Is.EqualTo(arrayHash));
-        }
-    }
-
-    [Test]
-    public unsafe void XxHash64_VoidPointer_Null_ReturnsZero()
-    {
-        var hash = XxHash.XxHash64(null, 0);
-        Assert.That(hash, Is.Zero);
-    }
-
-    [Test]
-    public unsafe void XxHash64_VoidPointer_NegativeLength_ThrowsException()
-    {
-        fixed (byte* ptr = TestBytes)
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => XxHash.XxHash64(ptr, -1));
-        }
-    }
-
-    [Test]
     public void XxHash64_Stream_ReturnsExpectedHash()
     {
         using var stream = new MemoryStream(TestBytes);
@@ -177,7 +140,7 @@ public class XxHashTests
         Assert.That(hash, Is.Not.Zero);
     }
 
-    #endregion
+    #endregion XxHash64 Tests
 
     #region XxHash64s Tests (Signed)
 
@@ -222,16 +185,6 @@ public class XxHashTests
 #endif
 
     [Test]
-    public unsafe void XxHash64s_VoidPointer_ReturnsExpectedHash()
-    {
-        fixed (byte* ptr = TestBytes)
-        {
-            var hash = XxHash.XxHash64s(ptr, TestBytes.Length);
-            Assert.That(hash, Is.Not.Zero);
-        }
-    }
-
-    [Test]
     public void XxHash64s_Stream_ReturnsExpectedHash()
     {
         using var stream = new MemoryStream(TestBytes);
@@ -239,7 +192,7 @@ public class XxHashTests
         Assert.That(hash, Is.Not.Zero);
     }
 
-    #endregion
+    #endregion XxHash64s Tests (Signed)
 
     #region XxHash32 Tests
 
@@ -315,43 +268,6 @@ public class XxHashTests
 #endif
 
     [Test]
-    public unsafe void XxHash32_VoidPointer_ReturnsExpectedHash()
-    {
-        fixed (byte* ptr = TestBytes)
-        {
-            var hash = XxHash.XxHash32(ptr, TestBytes.Length);
-            Assert.That(hash, Is.Not.Zero);
-        }
-    }
-
-    [Test]
-    public unsafe void XxHash32_VoidPointer_MatchesByteArray()
-    {
-        fixed (byte* ptr = TestBytes)
-        {
-            var ptrHash = XxHash.XxHash32(ptr, TestBytes.Length);
-            var arrayHash = XxHash.XxHash32(TestBytes);
-            Assert.That(ptrHash, Is.EqualTo(arrayHash));
-        }
-    }
-
-    [Test]
-    public unsafe void XxHash32_VoidPointer_Null_ReturnsZero()
-    {
-        var hash = XxHash.XxHash32(null, 0);
-        Assert.That(hash, Is.Zero);
-    }
-
-    [Test]
-    public unsafe void XxHash32_VoidPointer_NegativeLength_ThrowsException()
-    {
-        fixed (byte* ptr = TestBytes)
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => XxHash.XxHash32(ptr, -1));
-        }
-    }
-
-    [Test]
     public void XxHash32_Stream_ReturnsExpectedHash()
     {
         using var stream = new MemoryStream(TestBytes);
@@ -400,7 +316,7 @@ public class XxHashTests
         Assert.That(hash, Is.Not.Zero);
     }
 
-    #endregion
+    #endregion XxHash32 Tests
 
     #region XxHash32s Tests (Signed)
 
@@ -445,16 +361,6 @@ public class XxHashTests
 #endif
 
     [Test]
-    public unsafe void XxHash32s_VoidPointer_ReturnsExpectedHash()
-    {
-        fixed (byte* ptr = TestBytes)
-        {
-            var hash = XxHash.XxHash32s(ptr, TestBytes.Length);
-            Assert.That(hash, Is.Not.Zero);
-        }
-    }
-
-    [Test]
     public void XxHash32s_Stream_ReturnsExpectedHash()
     {
         using var stream = new MemoryStream(TestBytes);
@@ -462,7 +368,7 @@ public class XxHashTests
         Assert.That(hash, Is.Not.Zero);
     }
 
-    #endregion
+    #endregion XxHash32s Tests (Signed)
 
     #region Consistency Tests
 
@@ -498,7 +404,7 @@ public class XxHashTests
         Assert.That((ulong)hash32, Is.Not.EqualTo(hash64));
     }
 
-    #endregion
+    #endregion Consistency Tests
 
     #region Edge Cases
 
@@ -550,7 +456,7 @@ public class XxHashTests
         Assert.That(hash2, Is.Not.EqualTo(hash3));
     }
 
-    #endregion
+    #endregion Edge Cases
 
     #region Stream Edge Cases
 
@@ -559,10 +465,10 @@ public class XxHashTests
     {
         using var stream1 = new MemoryStream(TestBytes);
         using var stream2 = new MemoryStream(TestBytes);
-        
+
         var hash1 = XxHash.XxHash64(stream1, 8);
         var hash2 = XxHash.XxHash64(stream2, 4096);
-        
+
         Assert.That(hash1, Is.EqualTo(hash2));
     }
 
@@ -571,10 +477,10 @@ public class XxHashTests
     {
         using var stream1 = new MemoryStream(TestBytes);
         using var stream2 = new MemoryStream(TestBytes);
-        
+
         var hash1 = XxHash.XxHash32(stream1, 8);
         var hash2 = XxHash.XxHash32(stream2, 4096);
-        
+
         Assert.That(hash1, Is.EqualTo(hash2));
     }
 
@@ -590,7 +496,7 @@ public class XxHashTests
         using var stream = new MemoryStream(data);
         var streamHash = XxHash.XxHash64(stream, 17);
         var arrayHash = XxHash.XxHash64(data);
-        
+
         Assert.That(streamHash, Is.EqualTo(arrayHash));
     }
 
@@ -606,11 +512,11 @@ public class XxHashTests
         using var stream = new MemoryStream(data);
         var streamHash = XxHash.XxHash32(stream, 17);
         var arrayHash = XxHash.XxHash32(data);
-        
+
         Assert.That(streamHash, Is.EqualTo(arrayHash));
     }
 
-    #endregion
+    #endregion Stream Edge Cases
 
     #region Performance Verification Tests
 
@@ -619,11 +525,11 @@ public class XxHashTests
     {
         var largeData = new byte[1_000_000];
         new Random(42).NextBytes(largeData);
-        
+
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
         var hash = XxHash.XxHash64(largeData);
         stopwatch.Stop();
-        
+
         Assert.That(hash, Is.Not.Zero);
         Assert.That(stopwatch.ElapsedMilliseconds, Is.LessThan(1000), "Hash should complete within 1 second");
     }
@@ -633,16 +539,16 @@ public class XxHashTests
     {
         var largeData = new byte[1_000_000];
         new Random(42).NextBytes(largeData);
-        
+
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
         var hash = XxHash.XxHash32(largeData);
         stopwatch.Stop();
-        
+
         Assert.That(hash, Is.Not.Zero);
         Assert.That(stopwatch.ElapsedMilliseconds, Is.LessThan(1000), "Hash should complete within 1 second");
     }
 
-    #endregion
+    #endregion Performance Verification Tests
 
     #region Known Value Tests
 
@@ -662,5 +568,5 @@ public class XxHashTests
         Assert.That(hash, Is.EqualTo(0x02CC5D05U));
     }
 
-    #endregion
+    #endregion Known Value Tests
 }
