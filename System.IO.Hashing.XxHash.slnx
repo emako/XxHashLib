@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
   <Project Path="src/System.IO.Hashing.XxHash.csproj" />
   <Project Path="tests/System.IO.Hashing.XxHash.Tests.csproj" />
 </Solution>

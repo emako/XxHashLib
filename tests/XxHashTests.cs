@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using System.IO.Hashing;
 using System.Text;
 
 namespace System.IO.Hashing.Tests;
@@ -43,8 +42,7 @@ public class XxHashTests
     [Test]
     public void XxHash64_EmptyByteArray_ReturnsNonZero()
     {
-        var hash = XxHash.XxHash64(Array.Empty<byte>());
-        Assert.That(hash, Is.Not.Zero);
+        Assert.That(XxHash.XxHash64(Array.Empty<byte>()), Is.Not.Zero);
     }
 
 #if NETCOREAPP || NETSTANDARD2_1_OR_GREATER
@@ -418,7 +416,7 @@ public class XxHashTests
     [Test]
     public void XxHash32_SingleByte_ReturnsExpectedHash()
     {
-        var hash = XxHash.XxHash32(new byte[] { 42 });
+        var hash = XxHash.XxHash32([42]);
         Assert.That(hash, Is.Not.Zero);
     }
 
@@ -564,7 +562,7 @@ public class XxHashTests
     public void XxHash32_EmptyInput_ReturnsKnownValue()
     {
         // xxHash32 of empty input with seed 0 is 0x02CC5D05
-        var hash = XxHash.XxHash32(Array.Empty<byte>());
+        uint hash = XxHash.XxHash32(Array.Empty<byte>());
         Assert.That(hash, Is.EqualTo(0x02CC5D05U));
     }
 

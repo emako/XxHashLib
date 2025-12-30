@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace System.IO.Hashing;
 
@@ -51,7 +52,7 @@ internal static unsafe class XxHash64Impl
         if (stream is null) throw new ArgumentNullException(nameof(stream));
         if (bufferSize <= 0) throw new ArgumentOutOfRangeException(nameof(bufferSize));
 
-        var allData = new System.Collections.Generic.List<byte>();
+        List<byte> allData = [];
         byte[] buffer = new byte[bufferSize];
         int bytesRead;
 
@@ -63,7 +64,7 @@ internal static unsafe class XxHash64Impl
             }
         }
 
-        byte[] data = allData.ToArray();
+        byte[] data = [.. allData];
         fixed (byte* p = data)
         {
             return HashCore(p, data.Length, seed);
