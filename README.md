@@ -1,6 +1,6 @@
 ![logo](branding/titlebar.png)
 
-[![GitHub license](https://img.shields.io/github/license/emako/XxHash.NET)](https://github.com/emako/XxHash.NET/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/v/XxHash.svg)](https://nuget.org/packages/XxHash) [![Actions](https://github.com/emako/XxHash.NET/actions/workflows/library.nuget.yml/badge.svg)](https://github.com/emako/XxHash.NET/actions/workflows/library.nuget.yml)
+[![GitHub license](https://img.shields.io/github/license/emako/XxHash.NET)](https://github.com/emako/XxHash.NET/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/v/XxHashLib.svg)](https://nuget.org/packages/XxHashLib) [![Actions](https://github.com/emako/XxHash.NET/actions/workflows/library.nuget.yml/badge.svg)](https://github.com/emako/XxHash.NET/actions/workflows/library.nuget.yml)
 
 # XxHash.NET
 
@@ -131,8 +131,8 @@ ulong hash = XxHash.XxHash64(stream, bufferSize: 8192);
 |--------|-------------|-------------|
 | `XxHash32(string)` | `uint` | Hash a string |
 | `XxHash32(byte[])` | `uint` | Hash a byte array |
-| `XxHash32(ReadOnlySpan<byte>)` | `uint` | Hash a byte span* |
-| `XxHash32(ReadOnlySpan<char>)` | `uint` | Hash a char span* |
+| `XxHash32(ReadOnlySpan<byte>)` | `uint` | Hash a byte span |
+| `XxHash32(ReadOnlySpan<char>)` | `uint` | Hash a char span |
 | `XxHash32(Stream, int)` | `uint` | Hash a stream with optional buffer size |
 | `XxHash32s(...)` | `int` | Signed versions of above methods |
 
@@ -142,8 +142,8 @@ ulong hash = XxHash.XxHash64(stream, bufferSize: 8192);
 |--------|-------------|-------------|
 | `XxHash64(string)` | `ulong` | Hash a string |
 | `XxHash64(byte[])` | `ulong` | Hash a byte array |
-| `XxHash64(ReadOnlySpan<byte>)` | `ulong` | Hash a byte span* |
-| `XxHash64(ReadOnlySpan<char>)` | `ulong` | Hash a char span* |
+| `XxHash64(ReadOnlySpan<byte>)` | `ulong` | Hash a byte span |
+| `XxHash64(ReadOnlySpan<char>)` | `ulong` | Hash a char span |
 | `XxHash64(Stream, int)` | `ulong` | Hash a stream with optional buffer size |
 | `XxHash64s(...)` | `long` | Signed versions of above methods |
 
@@ -153,8 +153,8 @@ ulong hash = XxHash.XxHash64(stream, bufferSize: 8192);
 |--------|-------------|-------------|
 | `XxHash3(string)` | `ulong` | Hash a string |
 | `XxHash3(byte[])` | `ulong` | Hash a byte array |
-| `XxHash3(ReadOnlySpan<byte>)` | `ulong` | Hash a byte span* |
-| `XxHash3(ReadOnlySpan<char>)` | `ulong` | Hash a char span* |
+| `XxHash3(ReadOnlySpan<byte>)` | `ulong` | Hash a byte span |
+| `XxHash3(ReadOnlySpan<char>)` | `ulong` | Hash a char span |
 | `XxHash3(Stream, int)` | `ulong` | Hash a stream with optional buffer size |
 | `XxHash3s(...)` | `long` | Signed versions of above methods |
 
@@ -164,8 +164,8 @@ ulong hash = XxHash.XxHash64(stream, bufferSize: 8192);
 |--------|-------------|-------------|
 | `XxHash128(string)` | `Hash128` | Hash a string |
 | `XxHash128(byte[])` | `Hash128` | Hash a byte array |
-| `XxHash128(ReadOnlySpan<byte>)` | `Hash128` | Hash a byte span* |
-| `XxHash128(ReadOnlySpan<char>)` | `Hash128` | Hash a char span* |
+| `XxHash128(ReadOnlySpan<byte>)` | `Hash128` | Hash a byte span |
+| `XxHash128(ReadOnlySpan<char>)` | `Hash128` | Hash a char span |
 | `XxHash128(Stream, int)` | `Hash128` | Hash a stream with optional buffer size |
 
 \* *Available on .NET Standard 2.1+ and .NET Core 2.1+*
@@ -282,5 +282,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - [xxHash Official Repository](https://github.com/Cyan4973/xxHash)
 - [xxHash Algorithm Specification](https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md)
-- [NuGet Package](https://www.nuget.org/packages/XxHash/)
 

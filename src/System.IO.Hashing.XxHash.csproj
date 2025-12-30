@@ -5,7 +5,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>preview</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>XxHash</PackageId>
+    <PackageId>XxHashLib</PackageId>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
     <Version>$(VersionPrefix)1.0.0</Version>
