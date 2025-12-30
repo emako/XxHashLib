@@ -1,5 +1,6 @@
+![logo](branding/titlebar.png)
 
-[![NuGet](https://img.shields.io/nuget/v/XxHash.svg)](https://www.nuget.org/packages/XxHash/) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub license](https://img.shields.io/github/license/emako/XxHash.NET)](https://github.com/emako/XxHash.NET/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/v/XxHash.svg)](https://nuget.org/packages/XxHash) [![Actions](https://github.com/emako/XxHash.NET/actions/workflows/library.nuget.yml/badge.svg)](https://github.com/emako/XxHash.NET/actions/workflows/library.nuget.yml)
 
 # XxHash.NET
 
