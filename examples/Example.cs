@@ -1,7 +1,7 @@
 using System.IO.Hashing;
 using System.Text;
 
-Console.WriteLine("XxHash.NET Example\n");
+Console.WriteLine("XxHashLib Example\n");
 
 string testString = "Hello, World!";
 byte[] testData = Encoding.UTF8.GetBytes(testString);

@@ -11,8 +11,8 @@
     <Version>$(VersionPrefix)1.0.0</Version>
     <Authors>ema</Authors>
     <Description>A high-performance .NET implementation of the xxHash non-cryptographic hash algorithm.</Description>
-    <PackageProjectUrl>https://github.com/emako/XxHash.NET</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/emako/XxHash.NET</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/emako/XxHashLib</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/emako/XxHashLib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>xxhash xxhash32 xxhash64 xxhash3 xxhash128</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

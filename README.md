@@ -1,8 +1,8 @@
 ![logo](branding/titlebar.png)
 
-[![GitHub license](https://img.shields.io/github/license/emako/XxHash.NET)](https://github.com/emako/XxHash.NET/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/v/XxHashLib.svg)](https://nuget.org/packages/XxHashLib) [![Actions](https://github.com/emako/XxHash.NET/actions/workflows/library.nuget.yml/badge.svg)](https://github.com/emako/XxHash.NET/actions/workflows/library.nuget.yml)
+[![GitHub license](https://img.shields.io/github/license/emako/XxHashLib)](https://github.com/emako/XxHashLib/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/v/XxHashLib.svg)](https://nuget.org/packages/XxHashLib) [![Actions](https://github.com/emako/XxHashLib/actions/workflows/library.nuget.yml/badge.svg)](https://github.com/emako/XxHashLib/actions/workflows/library.nuget.yml)
 
-# XxHash.NET
+# XxHashLib
 
 A high-performance .NET implementation of the xxHash non-cryptographic hash algorithm.
 
