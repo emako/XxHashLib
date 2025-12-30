@@ -3,7 +3,33 @@
   <PropertyGroup>
     <TargetFrameworks>net452;net462;net472;net48;net481;netstandard2.0;netstandard2.1;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>XxHash</PackageId>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <Version>$(VersionPrefix)1.0.0</Version>
+    <Authors>ema</Authors>
+    <Description>A high-performance .NET implementation of the xxHash non-cryptographic hash algorithm.</Description>
+    <PackageProjectUrl>https://github.com/emako/XxHash.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/emako/XxHash.NET</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>High-performance xxhash xxhash32 xxhash64 xxhash3 xxhash128</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>logo.png</PackageIcon>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+    <None Include="..\branding\logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
 
 </Project>
