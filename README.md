@@ -20,13 +20,13 @@ A high-performance .NET implementation of the xxHash non-cryptographic hash algo
 Install via NuGet Package Manager:
 
 ```bash
-dotnet add package System.IO.Hashing.XxHash
+dotnet add package XxHashLib
 ```
 
 Or via Package Manager Console:
 
 ```powershell
-Install-Package System.IO.Hashing.XxHash
+Install-Package XxHashLib
 ```
 
 ## Supported Frameworks
