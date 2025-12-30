@@ -3,26 +3,20 @@ namespace System.IO.Hashing;
 /// <summary>
 /// Represents a 128-bit hash value.
 /// </summary>
-public readonly struct Hash128
+/// <remarks>
+/// Initializes a new instance of the Hash128 struct.
+/// </remarks>
+public readonly struct Hash128(ulong low, ulong high)
 {
     /// <summary>
     /// Gets the low 64 bits of the hash.
     /// </summary>
-    public ulong Low { get; }
+    public ulong Low { get; } = low;
 
     /// <summary>
     /// Gets the high 64 bits of the hash.
     /// </summary>
-    public ulong High { get; }
-
-    /// <summary>
-    /// Initializes a new instance of the Hash128 struct.
-    /// </summary>
-    public Hash128(ulong low, ulong high)
-    {
-        Low = low;
-        High = high;
-    }
+    public ulong High { get; } = high;
 
     /// <summary>
     /// Returns a hexadecimal string representation of the hash.
