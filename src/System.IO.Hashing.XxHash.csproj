@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/emako/XxHash.NET</PackageProjectUrl>
     <RepositoryUrl>https://github.com/emako/XxHash.NET</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>High-performance xxhash xxhash32 xxhash64 xxhash3 xxhash128</PackageTags>
+    <PackageTags>xxhash xxhash32 xxhash64 xxhash3 xxhash128</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo.png</PackageIcon>
