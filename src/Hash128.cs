@@ -3,17 +3,17 @@ namespace System.IO.Hashing;
 /// <summary>
 /// Represents a 128-bit hash value.
 /// </summary>
-public struct Hash128
+public readonly struct Hash128
 {
     /// <summary>
-    /// Gets or sets the low 64 bits of the hash.
+    /// Gets the low 64 bits of the hash.
     /// </summary>
-    public ulong Low;
+    public ulong Low { get; }
 
     /// <summary>
-    /// Gets or sets the high 64 bits of the hash.
+    /// Gets the high 64 bits of the hash.
     /// </summary>
-    public ulong High;
+    public ulong High { get; }
 
     /// <summary>
     /// Initializes a new instance of the Hash128 struct.
@@ -51,11 +51,15 @@ public struct Hash128
     /// </summary>
     public override bool Equals(object obj)
     {
-        if (obj is Hash128 other)
-        {
-            return Low == other.Low && High == other.High;
-        }
-        return false;
+        return obj is Hash128 other && Equals(other);
+    }
+
+    /// <summary>
+    /// Determines whether two Hash128 values are equal.
+    /// </summary>
+    public bool Equals(Hash128 other)
+    {
+        return Low == other.Low && High == other.High;
     }
 
     /// <summary>
@@ -63,7 +67,10 @@ public struct Hash128
     /// </summary>
     public override int GetHashCode()
     {
-        return Low.GetHashCode() ^ High.GetHashCode();
+        unchecked
+        {
+            return (int)(Low ^ (Low >> 32) ^ High ^ (High >> 32));
+        }
     }
 
     /// <summary>
@@ -71,7 +78,7 @@ public struct Hash128
     /// </summary>
     public static bool operator ==(Hash128 left, Hash128 right)
     {
-        return left.Low == right.Low && left.High == right.High;
+        return left.Equals(right);
     }
 
     /// <summary>
@@ -79,6 +86,15 @@ public struct Hash128
     /// </summary>
     public static bool operator !=(Hash128 left, Hash128 right)
     {
-        return !(left == right);
+        return !left.Equals(right);
+    }
+
+    /// <summary>
+    /// Deconstructs the Hash128 into its low and high components.
+    /// </summary>
+    public void Deconstruct(out ulong low, out ulong high)
+    {
+        low = Low;
+        high = High;
     }
 }
